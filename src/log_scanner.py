@@ -173,7 +173,7 @@ class ArenaScanner:
             draft_id = event_data["id"]
             request_data = json.loads(event_data["request"])
             payload_data = json.loads(request_data["Payload"])
-            event_name = payload_data["EventName"]
+            event_name = request_data["EventName"]  # 从解析后的字典中获取 EventName
 
             logger.info("Event found %s", event_name)
 
@@ -277,12 +277,13 @@ class ArenaScanner:
                         self.draft_log.info(line)
                         draft_data = json.loads(line[start_offset:])
                         request_data = draft_data["request"]
-                        payload_data = json.loads(request_data)["Payload"]
+                        #payload_data = json.loads(request_data)["Payload"]
 
                         pack_cards = []
                         try:
 
-                            card_data = json.loads(payload_data)
+                            #card_data = json.loads(payload_data)
+                            card_data = json.loads(request_data)
                             cards = card_data["CardsInPack"]
 
                             for card in cards:
